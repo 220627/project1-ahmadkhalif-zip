@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import com.revature.controllers.ers_users_Controller;
 import com.revature.models.ers_reimbursement;
 import com.revature.models.ers_users;
 import com.revature.utils.ConnectionUtil;
@@ -195,7 +196,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 	
 	//update reimbursement
 	@Override
-	public boolean resolveRequest(ers_users user, int reimb_status_id, int reimb_id ) {
+	public boolean resolveRequest(int reimb_id, int reimb_status_id) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
@@ -204,7 +205,9 @@ try(Connection conn = ConnectionUtil.getConnection()){
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			ps.setTimestamp(1, getCurrentTimeStamp());
-			ps.setInt(2, user.getUser_id()); // will this collect the user who is resolving the reimbursement?
+			ps.setInt(2, (int) ers_users_Controller.ses.getAttribute("user_id")); 
+			// will the above collect the user who is resolving the reimbursement?
+			// whacky session solution. Will it work
 			ps.setInt(3, reimb_status_id);
 			ps.setInt(4, reimb_id);
 			

@@ -38,10 +38,8 @@ public class ers_usersDAO implements ers_users_DAOInterface {
 				
 				return u;
 				
-				//notice we're returning the password here... probably not best practice lol
-				// in a REAL application, we'd probably want a User constructor with no password
-				// and send that around instead
-						
+				
+				
 			}
 			
 		} catch (SQLException e) {
