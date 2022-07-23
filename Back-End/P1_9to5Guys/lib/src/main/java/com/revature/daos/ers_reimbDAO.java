@@ -7,6 +7,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import com.revature.models.ers_reimbursement;
+import com.revature.models.ers_users;
 import com.revature.utils.ConnectionUtil;
 
 public class ers_reimbDAO implements ers_reimb_DAOInterface {
@@ -77,10 +78,35 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 	
 	//update reimbursement
 	@Override
-	public boolean resolveRequest(int reimb_id, int reimb_status_id) {
-		// TODO Auto-generated method stub
+	public boolean resolveRequest(ers_users user, int reimb_status_id, int reimb_id ) {
+		
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "update ers_reimbursements set reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ? where reimb_id = ?;";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setTimestamp(1, getCurrentTimeStamp());
+			ps.setInt(2, user.getUser_id());
+			ps.setInt(3, reimb_status_id);
+			ps.setInt(4, reimb_id);
+			
+			ps.executeUpdate();
+			
+			return true;
+			
+		} catch (SQLException e) {
+			System.out.println("Failed to resolve reimbursement.");
+			e.printStackTrace();
+		}
+		
 		return false;
-	}
+		
+	} // end of 
+
+
+		
+		
 	
 	
 }

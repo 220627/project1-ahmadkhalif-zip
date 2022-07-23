@@ -3,6 +3,7 @@ package com.revature.daos;
 import java.util.ArrayList;
 
 import com.revature.models.ers_reimbursement;
+import com.revature.models.ers_users;
 
 public interface ers_reimb_DAOInterface {
 
@@ -20,6 +21,6 @@ public interface ers_reimb_DAOInterface {
 	// view all reimbursements filtered by a type
 	public ArrayList<ers_reimbursement> viewAllReimbursementsbyType(int reimb_type_id);
 
-	public boolean resolveRequest(int reimb_id, int reimb_status_id);
+	public boolean resolveRequest(ers_users user, int reimb_status_id, int reimb_id);
 	
 }
