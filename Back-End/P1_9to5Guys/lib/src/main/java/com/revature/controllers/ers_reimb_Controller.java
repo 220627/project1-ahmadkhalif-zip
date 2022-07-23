@@ -110,7 +110,7 @@ public class ers_reimb_Controller {
 		String reimb_status_id = ctx.pathParam("reimb_status_id");
 		int status_id = Integer.parseInt(reimb_status_id);
 		
-		if(reDAO.resolveRequest(/* this is the object. do we need it? */null, form_id, status_id )) {
+		if(reDAO.resolveRequest(form_id, status_id)) {
 			ctx.status(202);
 			System.out.println("You have resolved the Reimbursement request.");
 		
