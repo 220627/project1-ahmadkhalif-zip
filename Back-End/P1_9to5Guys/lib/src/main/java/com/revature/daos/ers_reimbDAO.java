@@ -2,7 +2,9 @@ package com.revature.daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -19,6 +21,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		return new java.sql.Timestamp(today.getTime());
 	}
 
+	// methods accessible by employees
 	
 	// create a new request. Insert into re
 	@Override
@@ -59,19 +62,133 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 
 	@Override
 	public ArrayList<ers_reimbursement> viewAllReimbursementsbyUser(int reimb_author) {
-		// TODO Auto-generated method stub
+		
+try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "SELECT * FROM ers_reimbursements where reimb_author = ?;";
+			
+			// because there are no variables/wild-cards involved we don't need a preparedStatement
+			PreparedStatement s = conn.prepareStatement(sql);
+			
+			// a result set will allow us to hold our data
+			ResultSet rs = s.executeQuery(sql);
+			
+			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
+			
+			// we need a while loop to cycle through the array of employees
+			while(rs.next()) {
+				//use the all args constructor for observing
+				ers_reimbursement r = new ers_reimbursement(
+						rs.getInt("reimb_id"),
+						rs.getInt("reimb_amount"),
+						rs.getString("reimb_submitted"),
+						rs.getString("reimb_resolved"),
+						rs.getString("reimb_description"),
+						rs.getInt("reimb_author"),
+						rs.getInt("reimb_resolver"),
+						rs.getInt("reimb_status_id"),
+						rs.getInt("reimb_type_id")
+						);
+
+				reimb_list.add(r);
+			} // end of while loop
+			
+			return reimb_list;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong gathering reimbursements;"); // tell the console it failed
+			e.printStackTrace(); // print the error log		
+		}
+
 		return null;
 	}
 
+	
+	// methods accessible by managers
+	
 	@Override
 	public ArrayList<ers_reimbursement> viewAllReimbursements() {
-		// TODO Auto-generated method stub
+		
+try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "SELECT * FROM ers_reimbursements;";
+			
+			// because there are no variables/wild-cards involved we don't need a preparedStatement
+			Statement s = conn.createStatement();
+			
+			// a result set will allow us to hold our data
+			ResultSet rs = s.executeQuery(sql);
+			
+			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
+			
+			// we need a while loop to cycle through the array of employees
+			while(rs.next()) {
+				//use the all args constructor for observing
+				ers_reimbursement r = new ers_reimbursement(
+						rs.getInt("reimb_id"),
+						rs.getInt("reimb_amount"),
+						rs.getString("reimb_submitted"),
+						rs.getString("reimb_resolved"),
+						rs.getString("reimb_description"),
+						rs.getInt("reimb_author"),
+						rs.getInt("reimb_resolver"),
+						rs.getInt("reimb_status_id"),
+						rs.getInt("reimb_type_id")
+						);
+
+				reimb_list.add(r);
+			} // end of while loop
+			
+			return reimb_list;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong gathering reimbursements;"); // tell the console it failed
+			e.printStackTrace(); // print the error log		
+		}
+		
 		return null;
-	}
+	} // end of selectAllReimbs
+		
 
 	@Override
 	public ArrayList<ers_reimbursement> viewAllReimbursementsbyType(int reimb_type_id) {
-		// TODO Auto-generated method stub
+
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "SELECT * FROM ers_reimbursements where reimb_type_id = ?;";
+			
+			// because there are no variables/wild-cards involved we don't need a preparedStatement
+			PreparedStatement s = conn.prepareStatement(sql);
+			
+			// a result set will allow us to hold our data
+			ResultSet rs = s.executeQuery(sql);
+			
+			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
+			
+			// we need a while loop to cycle through the array of employees
+			while(rs.next()) {
+				//use the all args constructor for observing
+				ers_reimbursement r = new ers_reimbursement(
+						rs.getInt("reimb_id"),
+						rs.getInt("reimb_amount"),
+						rs.getString("reimb_submitted"),
+						rs.getString("reimb_resolved"),
+						rs.getString("reimb_description"),
+						rs.getInt("reimb_author"),
+						rs.getInt("reimb_resolver"),
+						rs.getInt("reimb_status_id"),
+						rs.getInt("reimb_type_id")
+						);
+
+				reimb_list.add(r);
+			} // end of while loop
+			
+			return reimb_list;
+			
+		} catch (SQLException e) {
+			System.out.println("Something went wrong gathering reimbursements;"); // tell the console it failed
+			e.printStackTrace(); // print the error log		
+		}
 		return null;
 	}
 
@@ -87,7 +204,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			ps.setTimestamp(1, getCurrentTimeStamp());
-			ps.setInt(2, user.getUser_id());
+			ps.setInt(2, user.getUser_id()); // will this collect the user who is resolving the reimbursement?
 			ps.setInt(3, reimb_status_id);
 			ps.setInt(4, reimb_id);
 			
