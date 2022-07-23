@@ -57,6 +57,20 @@ public class ers_users {
 	}
 
 	
+	
+	
+	// minus object and password
+	public ers_users(int user_id, String username, String first_name, String last_name, String user_email,
+			int user_role_id) {
+		super();
+		this.user_id = user_id;
+		this.username = username;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.user_email = user_email;
+		this.user_role_id = user_role_id;
+	}
+
 	// toString
 	@Override
 	public String toString() {
