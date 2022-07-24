@@ -63,35 +63,59 @@ CREATE TABLE ers_reimbursement (
 	reimb_status_id int REFERENCES ers_reimbursement_status (reimbursement_status_id),
 	reimb_type_id int REFERENCES ers_reimbursement_type (reimbursement_type_id)
 );
-
-
-SELECT * FROM ers_reimbursement JOIN ers_users ON ers_reimbursement.reimb_author = ers_users.user_id;
-
-SELECT * FROM ers_reimbursement;
-
-SELECT * FROM ers_users;
-
-SELECT * FROM ers_reimbursement_status;
-
-SELECT * FROM ers_reimbursement_type;
-
 SELECT * FROM ers_reimbursement AS er 
-FULL JOIN ers_users AS us ON er.reimb_author = us.user_id AND er.reimb_resolver  = us.user_id 
-FULL JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+INNER JOIN UserNoPass AS us ON er.reimb_author = us.user_id
+LEFT JOIN usernopass AS us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
 FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
 
+-- get rid of passwords from table... wrong table
+CREATE TEMPORARY TABLE noPassReimb AS SELECT * FROM ers_reimbursement;
+
+ALTER TABLE noPassReimb DROP COLUMN PASSWORD;
+SELECT * FROM noPassReimb;
+
+-- user no pass 
+CREATE TEMPORARY TABLE UserNoPass AS SELECT * FROM ers_users;
+
+ALTER TABLE UserNoPass DROP COLUMN PASSWORD;
+SELECT * FROM UserNoPass;
 
 
+SELECT reimb_author FROM ers_reimbursement UNION 
+SELECT user_id FROM UserNoPass; 
+-- union isn't the solution, back to join
 
+-- create some resolved reimbursement
+INSERT INTO ers_reimbursement(reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)
+VALUES (14000, now(), now(), 'i need some broccoli', 4, 1, 3, 3),
+	   (725, now(), now(), 'going to Indiana', 5, 2, 2, 1),
+	   (9000, now(), now(), 'can I just have some money? lmao', 5, 2, 3, 4);
 
+-- filter by type
+SELECT * FROM ers_reimbursement AS er 
+INNER JOIN ers_users AS us ON er.reimb_author = us.user_id
+LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id
+WHERE er.reimb_type_id = 3;
 
+-- filter by author_id
+SELECT * FROM ers_reimbursement AS er 
+INNER JOIN ers_users AS us ON er.reimb_author = us.user_id
+LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id
+WHERE er.reimb_author = 3;
 
+-- see all reimbursements
+SELECT * FROM ers_reimbursement AS er 
+INNER JOIN ers_users AS us ON er.reimb_author = us.user_id
+LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
 
-
-
-
-
-
+-- just take the password out... when you have more time.
 
 
 

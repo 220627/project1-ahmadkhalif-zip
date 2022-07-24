@@ -66,10 +66,17 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		
 try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursements where reimb_author = ?;";
+			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
+					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
+					+ "WHERE er.reimb_author = ?;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			PreparedStatement s = conn.prepareStatement(sql);
+			
+			s.setInt(1, (int) ers_users_Controller.ses.getAttribute("user_id"));
 			
 			// a result set will allow us to hold our data
 			ResultSet rs = s.executeQuery(sql);
@@ -112,7 +119,11 @@ try(Connection conn = ConnectionUtil.getConnection()){
 		
 try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursements;";
+			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
+					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			Statement s = conn.createStatement();
@@ -156,10 +167,17 @@ try(Connection conn = ConnectionUtil.getConnection()){
 
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursements where reimb_type_id = ?;";
+			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
+					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
+					+ "WHERE er.reimb_type_id = ?;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			PreparedStatement s = conn.prepareStatement(sql);
+			
+			s.setInt(1, reimb_type_id);
 			
 			// a result set will allow us to hold our data
 			ResultSet rs = s.executeQuery(sql);
