@@ -58,3 +58,22 @@ INSERT INTO ersreimbursement(reimb_amount, reimb_submitted, reimb_resolved, reim
 VALUES (14000, now(), now(), 'i need some broccoli', 4, 1, 3, 3),
 	   (725, now(), now(), 'going to Indiana', 5, 2, 2, 1),
 	   (9000, now(), now(), 'can I just have some money? lmao', 5, 2, 3, 4);
+
+	  -- view all reimbursements
+SELECT * FROM ersreimbursement AS er
+INNER JOIN ersusers us ON er.reimb_author = us.user_id 
+LEFT JOIN ersusers us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
+
+SELECT * FROM ersreimbursement AS er
+INNER JOIN ersusers U ON er.reimb_author = U.user_id
+LEFT JOIN ersusers AS us2 ON er.reimb_resolver = us2.user_id
+LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
+FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
+
+
+
+
+
+

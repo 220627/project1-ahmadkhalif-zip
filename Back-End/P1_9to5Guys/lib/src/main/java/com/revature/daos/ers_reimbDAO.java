@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import com.revature.controllers.ers_users_Controller;
 import com.revature.models.ers_reimbursement;
-import com.revature.models.ers_users;
 import com.revature.utils.ConnectionUtil;
 
 public class ers_reimbDAO implements ers_reimb_DAOInterface {
@@ -92,10 +91,16 @@ try(Connection conn = ConnectionUtil.getConnection()){
 						rs.getString("reimb_submitted"),
 						rs.getString("reimb_resolved"),
 						rs.getString("reimb_description"),
-						rs.getInt("reimb_author"),
-						rs.getInt("reimb_resolver"),
-						rs.getInt("reimb_status_id"),
-						rs.getInt("reimb_type_id")
+						rs.getString("reimb_author_username"),
+						rs.getString("reimb_author_first_name"),
+						rs.getString("reimb_author_last_name"),
+						rs.getString("reimb_author_email"),
+						rs.getString("reimb_resolver_username"),
+						rs.getString("reimb_resolver_first_name"),
+						rs.getString("reimb_resolver_last_name"),
+						rs.getString("reimb_resolver_email"),
+						rs.getString("reimb_status_text"),
+						rs.getString("reimb_type_text")
 						);
 
 				reimb_list.add(r);
@@ -117,7 +122,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 	@Override
 	public ArrayList<ers_reimbursement> viewAllReimbursements() {
 		
-try(Connection conn = ConnectionUtil.getConnection()){
+		try(Connection conn = ConnectionUtil.getConnection()){
 			
 			String sql = "SELECT * FROM ersreimbursement AS er \r\n"
 					+ "INNER JOIN ersusers AS us ON er.reimb_author = us.user_id\r\n"
@@ -143,9 +148,19 @@ try(Connection conn = ConnectionUtil.getConnection()){
 						rs.getString("reimb_resolved"),
 						rs.getString("reimb_description"),
 						rs.getInt("reimb_author"),
-						rs.getInt("reimb_resolver"),
-						rs.getInt("reimb_status_id"),
-						rs.getInt("reimb_type_id")
+				        rs.getInt("reimb_resolver"),
+				        rs.getInt("reimb_status_id"),
+				        rs.getInt("reimb_type_id"),
+						rs.getString("username"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getString("user_email"),
+						rs.getString("username"),
+						rs.getString("first_name"),
+						rs.getString("last_name"),
+						rs.getString("user_email"),
+						rs.getString("reimbursement_status"),
+						rs.getString("reimbursement_type")
 						);
 
 				reimb_list.add(r);
@@ -154,7 +169,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 			return reimb_list;
 			
 		} catch (SQLException e) {
-			System.out.println("Something went wrong gathering reimbursements;"); // tell the console it failed
+			System.out.println("Something went wrong gathering reimbursements"); // tell the console it failed
 			e.printStackTrace(); // print the error log		
 		}
 		
