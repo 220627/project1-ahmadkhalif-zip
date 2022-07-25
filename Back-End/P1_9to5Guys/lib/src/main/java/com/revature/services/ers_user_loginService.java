@@ -7,10 +7,10 @@ public class ers_user_loginService {
 	
 ers_usersDAO uDAO = new ers_usersDAO();
 	
-	public ers_users login(String user_name, String password) {
+	public ers_users login(String username, String password) {
 		
-		if(uDAO.login(user_name, password) != null) {
-			return uDAO.login(user_name, password); // if username and password sned a User from the DAO, send the username back
+		if(uDAO.login(username, password) != null) {
+			return uDAO.login(username, password); // if username and password sned a User from the DAO, send the username back
 		
 		}
 		

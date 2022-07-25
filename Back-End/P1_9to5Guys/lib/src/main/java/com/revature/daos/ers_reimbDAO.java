@@ -30,7 +30,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "insert into ers_reimbursements (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_resolver, reimb_status_id, reimb_type_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "insert into ersreimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_resolver, reimb_status_id, reimb_type_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -66,11 +66,11 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		
 try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
-					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
-					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
-					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
-					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
+			String sql = "SELECT * FROM ersreimbursement AS er \r\n"
+					+ "INNER JOIN ersusers AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ersusers AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ersreimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ersreimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
 					+ "WHERE er.reimb_author = ?;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
@@ -119,11 +119,11 @@ try(Connection conn = ConnectionUtil.getConnection()){
 		
 try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
-					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
-					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
-					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
-					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id;";
+			String sql = "SELECT * FROM ersreimbursement AS er \r\n"
+					+ "INNER JOIN ersusers AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ersusers AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			Statement s = conn.createStatement();
@@ -167,11 +167,11 @@ try(Connection conn = ConnectionUtil.getConnection()){
 
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ers_reimbursement AS er \r\n"
-					+ "INNER JOIN ers_users AS us ON er.reimb_author = us.user_id\r\n"
-					+ "LEFT JOIN ers_users AS us2 ON er.reimb_resolver = us2.user_id\r\n"
-					+ "LEFT JOIN ers_reimbursement_status AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
-					+ "FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
+			String sql = "SELECT * FROM ersreimbursement AS er \r\n"
+					+ "INNER JOIN ersusers AS us ON er.reimb_author = us.user_id\r\n"
+					+ "LEFT JOIN ersusers AS us2 ON er.reimb_resolver = us2.user_id\r\n"
+					+ "LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id \r\n"
+					+ "FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
 					+ "WHERE er.reimb_type_id = ?;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
@@ -218,7 +218,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "update ers_reimbursements set reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ? where reimb_id = ?;";
+			String sql = "update ersreimbursement set reimb_resolved = ?, reimb_resolver = ?, reimb_status_id = ? where reimb_id = ?;";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			

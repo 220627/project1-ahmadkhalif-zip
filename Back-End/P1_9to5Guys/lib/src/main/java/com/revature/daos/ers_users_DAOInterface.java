@@ -7,7 +7,7 @@ import com.revature.models.ers_users;
 
 public interface ers_users_DAOInterface {
 	
-	public ers_users login(String user_name, String password);
+	public ers_users login(String username, String password);
 	
 	// we only want to make a new employee user as
 	// ... as this method isn't really necessary for base project

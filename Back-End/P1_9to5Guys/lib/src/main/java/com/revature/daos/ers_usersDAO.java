@@ -11,15 +11,15 @@ import com.revature.utils.ConnectionUtil;
 public class ers_usersDAO implements ers_users_DAOInterface {
 
 	@Override
-	public ers_users login(String user_name, String password) {
+	public ers_users login(String username, String password) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "select * from users where username = ? and password = ?;";
+			String sql = "select * from ersusers where username = ? and password = ?;";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, user_name);
+			ps.setString(1, username);
 			ps.setString(2, password);
 			
 			ResultSet rs = ps.executeQuery();
@@ -29,7 +29,7 @@ public class ers_usersDAO implements ers_users_DAOInterface {
 				ers_users u = new ers_users(
 						rs.getInt("user_id"),
 						rs.getString("username"),
-// not necessary		rs.getString("password"),
+		rs.getString("password"),
 						rs.getString("first_name"),
 						rs.getString("last_name"),
 						rs.getString("user_email"),

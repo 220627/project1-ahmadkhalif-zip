@@ -40,9 +40,11 @@ public class ers_users_Controller {
 				
 				ctx.result(userJSON);
 				ctx.status(202); // 202 stands for "accepted"
+				System.out.println("login successful");
 				
 			} else {
 				ctx.status(401); // 401 stands for "unauthorized"
+				System.out.println("login unsuccessful");
 			}
 			
 		};

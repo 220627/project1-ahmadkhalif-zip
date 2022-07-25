@@ -25,7 +25,7 @@ public class ConnectionUtil {
 		//Hardcoded for now... BAD! we'll change this later to hide them in the Environment Variables
 		
 		//I'm going to put the credentials in Strings, and use those strings in a method that gets connections
-		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=9to5Guys"; // change later for P0
+		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=ninetofiveguys"; // change later for P0
 		String username = "postgres"; 
 		String password = "password"; 
 		

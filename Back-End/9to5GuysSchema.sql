@@ -38,6 +38,8 @@ CREATE TABLE ers_users (
 	user_role_id SMALLINT REFERENCES ers_user_roles (ers_user_role_id)
 );
 
+SELECT * FROM ers_users WHERE username = 'moonman' AND PASSWORD = 'control';
+
 INSERT INTO ers_users (username, PASSWORD, first_name, last_name, user_email, user_role_id)
 VALUES ('sputnik', 'supercool', 'Randy', 'Clocker', 'rcgrimes@gmail.com', 1),
 	   ('moonman', 'control', 'Gavin', 'Puts', 'gambastra@gmail.com', 1),
@@ -118,10 +120,10 @@ FULL JOIN ers_reimbursement_type AS ty ON er.reimb_type_id = ty.reimbursement_ty
 -- just take the password out... when you have more time.
 
 
+select * from ers_users; where username = 'moonman' and password = 'control';
 
 
-
-
+SHOW search_path;
 
 
 

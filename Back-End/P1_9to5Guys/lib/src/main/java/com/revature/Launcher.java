@@ -39,7 +39,7 @@ public class Launcher {
 							config.enableCorsForAllOrigins(); // this lets us process HTTP requests from any origin
 						}
 						
-						).start(3000); // we need .start to start our Java server on port 3000
+						).start(4000); // we need .start to start our Java server on port 3000
 						// this port is important because this is where we need to send requests to.
 						
 				// we need endpoint handlers which will take in requests and sent them where they need to go
