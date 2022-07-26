@@ -104,7 +104,7 @@ public class ers_reimb_Controller {
 		// collect user data for new resolver id
 		// we current have the use of an object in the param
 		
-		String reimb_id = ctx.pathParam("reimb_status_id");
+		String reimb_id = ctx.pathParam("reimb_id");
 		int form_id = Integer.parseInt(reimb_id);
 		
 		String reimb_status_id = ctx.pathParam("reimb_status_id");

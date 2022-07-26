@@ -22,11 +22,11 @@ INSERT INTO ersreimbursementstatus (reimbursement_status)
 VALUES ('PENDING'), ('APPROVED'), ('DECLINED');
 CREATE TABLE ersusers (
 	user_id serial PRIMARY KEY,
-	username varchar(50) NOT NULL,
+	username varchar(50) NOT NULL UNIQUE,
 	PASSWORD varchar(50) NOT NULL,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
-	user_email varchar(50) NOT NULL,
+	user_email varchar(50) NOT NULL UNIQUE,
 	user_role_id SMALLINT REFERENCES ersuserroles (ers_user_role_id)
 );
 INSERT INTO ersusers (username, PASSWORD, first_name, last_name, user_email, user_role_id)
@@ -67,10 +67,25 @@ LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursem
 FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
 
 SELECT * FROM ersreimbursement AS er
-INNER JOIN ersusers U ON er.reimb_author = U.user_id
+INNER JOIN ersusers us ON er.reimb_author = us.user_id
 LEFT JOIN ersusers AS us2 ON er.reimb_resolver = us2.user_id
 LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id 
 FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id;
+
+SELECT * FROM UserNoPass;
+
+-- potentially need a transaction to execute column issue
+
+CREATE TEMPORARY TABLE UserNoPass AS SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers;
+
+SELECT * FROM ersreimbursement AS er 
+INNER JOIN ersusers us ON er.reimb_author = us.user_id
+LEFT JOIN (SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers) AS us2 ON er.reimb_resolver = us2.user_id2
+LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id
+FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id
+WHERE er.reimb_type_id = 4;
+
+
 
 
 
