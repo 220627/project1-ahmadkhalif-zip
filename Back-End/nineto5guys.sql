@@ -83,7 +83,7 @@ INNER JOIN ersusers us ON er.reimb_author = us.user_id
 LEFT JOIN (SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers) AS us2 ON er.reimb_resolver = us2.user_id2
 LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id
 FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id
-WHERE er.reimb_type_id = 4;
+WHERE er.reimb_type_id = 2;
 
 
 
