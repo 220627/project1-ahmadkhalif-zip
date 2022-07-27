@@ -39,6 +39,12 @@ public class ers_users_Controller {
 				String userJSON = gson.toJson(user);
 				
 				ctx.result(userJSON);
+				
+				// will this work?
+				//ctx.cookieStore("user_id", collectedKeys.getUser_id());
+				int current_user_id = user.getUser_id();
+				System.out.println(current_user_id);
+				
 				ctx.status(202); // 202 stands for "accepted"
 				System.out.println("login successful");
 				

@@ -107,7 +107,7 @@ public class ers_reimb_Controller {
 		String reimb_id = ctx.pathParam("reimb_id");
 		int form_id = Integer.parseInt(reimb_id);
 		
-		String reimb_status_id = ctx.pathParam("reimb_status_id");
+		String reimb_status_id = ctx.body();
 		int status_id = Integer.parseInt(reimb_status_id);
 		
 		if(reDAO.resolveRequest(form_id, status_id)) {

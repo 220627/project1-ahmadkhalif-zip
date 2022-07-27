@@ -85,8 +85,7 @@ LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursem
 FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id
 WHERE er.reimb_type_id = 2;
 
-
-
+ 
 
 
 

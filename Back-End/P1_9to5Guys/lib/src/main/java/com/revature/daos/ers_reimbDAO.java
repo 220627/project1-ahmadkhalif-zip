@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
+
 import com.revature.controllers.ers_users_Controller;
 import com.revature.models.ers_reimbursement;
 import com.revature.utils.ConnectionUtil;
@@ -68,19 +70,19 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 	@Override
 	public ArrayList<ers_reimbursement> viewAllReimbursementsbyUser(int reimb_author) {
 		
-try(Connection conn = ConnectionUtil.getConnection()){
+		try(Connection conn = ConnectionUtil.getConnection()){
 			
 			String sql = "SELECT * FROM ersreimbursement AS er \r\n"
 					+ "INNER JOIN ersusers us ON er.reimb_author = us.user_id\r\n"
 					+ "LEFT JOIN (SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers) AS us2 ON er.reimb_resolver = us2.user_id2\r\n"
 					+ "LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id\r\n"
 					+ "FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
-					+ "WHERE er.reimb_author = ?;";
+					+ "WHERE er.reimb_author = ?;"; 
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			PreparedStatement s = conn.prepareStatement(sql);
 			
-			s.setInt(1, (int) ers_users_Controller.ses.getAttribute("user_id"));
+			//s.setInt(1, );
 			
 			// a result set will allow us to hold our data
 			ResultSet rs = s.executeQuery(sql);
@@ -153,18 +155,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 			
 			
 			// a result set will allow us to hold our data
-			ResultSet rs = s.executeQuery(sql2);
-			
-			// this was just to see the out put... wait
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-
-			// The column count starts from 1
-			for (int i = 1; i <= columnCount; i++ ) {
-			  String name = rsmd.getColumnName(i);
-			  // Do stuff with name
-			  System.out.println(name);
-			}
+			ResultSet rs = s.executeQuery(sql2); 
 			
 			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
 			
@@ -278,7 +269,7 @@ try(Connection conn = ConnectionUtil.getConnection()){
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			ps.setTimestamp(1, getCurrentTimeStamp());
-			ps.setInt(2, (int) ers_users_Controller.ses.getAttribute("user_id")); 
+			ps.setInt(2, ); 
 			// will the above collect the user who is resolving the reimbursement?
 			// whacky session solution. Will it work
 			ps.setInt(3, reimb_status_id);
