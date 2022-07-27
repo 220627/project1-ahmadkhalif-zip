@@ -1,16 +1,24 @@
 // base url
-//const api = ""
+const api = "localhost:/4000/"
 
 // set event listeners
 document.getElementById("btn").onClick = loginFunc;
 
-function loginFunc(){
+async function loginFunc(){
 
-    // gather the user's input
-    let username_attempt = document.getElementById("username").value;
+    // user input into var
+    let usernameAttempt = document.getElementById("username").value
+    let passwordAttempt = document.getElementById("password").value
 
-    // initialize an XHR object which lets us send/recieve data
+    //use the fetch method to send a request to the login API with the user's input
+    let response = await fetch(api + ) 
 
+    // check promise
+    if(response.status === 200) {
+
+    } else {
+        document.
+    }
 
 
 }
