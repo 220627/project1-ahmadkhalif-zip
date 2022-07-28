@@ -127,9 +127,11 @@ async function viewAllReimbursements(){
                 // create and append options
                 for (var i = 0; i < array.length; i++) {
                     var option = document.createElement("option");
-                    option.value = array[i];
+                    option.value = i + 1;
                     option.text = array[i];
                     selectList.appendChild(option);
+                    console.log(option.value);
+                    console.log(option.text);
                 }
 
             } else{
@@ -144,12 +146,11 @@ async function viewAllReimbursements(){
         alert("something went wrong! make sure your Java is running")
 
     } // end of table filling
-
     
 } // end of viewAllReimbursements
 
 
-// this function will
+// this function will utilize the select list created in the row to fill
 async function resolveReimb(){
 
 }
