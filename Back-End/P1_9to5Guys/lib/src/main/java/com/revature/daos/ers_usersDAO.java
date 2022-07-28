@@ -29,7 +29,7 @@ public class ers_usersDAO implements ers_users_DAOInterface {
 				ers_users u = new ers_users(
 						rs.getInt("user_id"),
 						rs.getString("username"),
-	//	rs.getString("password"),
+						//	rs.getString("password"),
 						rs.getString("first_name"),
 						rs.getString("last_name"),
 						rs.getString("user_email"),
