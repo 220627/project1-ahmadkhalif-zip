@@ -23,6 +23,14 @@ by the reimb_type_id.
     <div class="container">
 
         <h3>Reimbursements</h3>
+        <br><br>
+
+        <select name="reimbTypeBar" id="reimbTypeBar">
+            <option value="1">Lodging</option>
+            <option value="2">Travel</option>
+            <option value="3">Food</option>
+            <option value="4">Other</option>
+        </select>
         
         <div id="table-row" class="row">
 
@@ -52,24 +60,20 @@ by the reimb_type_id.
                     <!-- this will be filled with data by JS -->
 
                 </tbody>
-
             </table>
-
-
-        
-
+        </div>
         <button id="viewAllReimbursemetsBtn" class="btn btn-secondary">View Reimbursements</button>
-
-
-    </div>   
+        
+        <br><br>
     
-    <div class="row">
-
-        <h4>Enter role title and new salary</h4>
-
-        <div class></div>
-
-    </div>
+    <h4>Enter role title and new salary</h4>
+        
+        <div class="row">
+            <input type="text" id="roleTitle" placeholder="Role Title">
+            <input type="text" id="salary" placeholder="New Salary">
+        </div>
+        <br>
+        <button id="updateBtn" class="btn btn-danger">Update Salary (hoax)</button>
 
     </div>
 

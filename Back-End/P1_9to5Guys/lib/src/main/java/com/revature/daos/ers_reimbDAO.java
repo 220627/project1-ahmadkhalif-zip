@@ -260,7 +260,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 	
 	//update reimbursement
 	@Override
-	public boolean resolveRequest(int reimb_id, int reimb_status_id) {
+	public boolean resolveRequest(int reimb_id, int reimb_resolver, int reimb_status_id) {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
@@ -269,7 +269,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			ps.setTimestamp(1, getCurrentTimeStamp());
-			ps.setInt(2, ); 
+			ps.setInt(2, reimb_resolver); 
 			// will the above collect the user who is resolving the reimbursement?
 			// whacky session solution. Will it work
 			ps.setInt(3, reimb_status_id);

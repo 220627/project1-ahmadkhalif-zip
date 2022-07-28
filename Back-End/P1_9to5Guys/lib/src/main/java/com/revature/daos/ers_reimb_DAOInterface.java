@@ -21,6 +21,6 @@ public interface ers_reimb_DAOInterface {
 	// view all reimbursements filtered by a type
 	public ArrayList<ers_reimbursement> viewAllReimbursementsbyType(int reimb_type_id);
 
-	public boolean resolveRequest(int reimb_id, int reimb_status_id);
+	public boolean resolveRequest(int reimb_id, int reimb_resolver, int reimb_status_id);
 	
 }

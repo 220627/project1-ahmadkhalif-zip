@@ -110,7 +110,15 @@ public class ers_reimb_Controller {
 		String reimb_status_id = ctx.body();
 		int status_id = Integer.parseInt(reimb_status_id);
 		
-		if(reDAO.resolveRequest(form_id, status_id)) {
+		String reimb_resolver_id = ctx.body();
+		int resolver_id = Integer.parseInt(reimb_resolver_id);
+		
+		Gson gson = new Gson();
+		
+		ers_reimbursements
+		
+		
+		if(reDAO.resolveRequest(form_id, resolver_id, status_id)) {
 			ctx.status(202);
 			System.out.println("You have resolved the Reimbursement request.");
 		

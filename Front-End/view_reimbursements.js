@@ -2,6 +2,7 @@ const url = "http://localhost:4000"; // base url to append... is it needed here?
 
 // add listener to give buttons functionality
 document.getElementById("viewAllReimbursemetsBtn").onclick = viewAllReimbursements
+document.getElementById("updateBtn").onclick = updateSalary // change
 
 async function viewAllReimbursements(){
 
@@ -152,6 +153,26 @@ async function viewAllReimbursements(){
 
 // this function will utilize the select list created in the row to fill
 async function resolveReimb(){
+
+    // gather user inputs
+    let title = document.getElementById("roleTitle").value
+    let salary = document.getElementById("salary").value
+
+    // fetch request to update role salary
+    // takes role title as a path param and it will take the new salary as the body
+    let response = await fetch(url + "/roles/" + title, {
+
+        method: "PUT",
+        body: salary // no need to turn to JSON because number
+    })
+
+    // control flow of status code
+    if(response.status === 202){
+        document.getElementById("updateHeader").innerText = "Salary for " + title + "update to: " + salary
+    
+    } else {
+        document.getElementById("updateHeader").innerText = "Update failed! Perhaps you type the title wrong?"
+    }
 
 }
 
