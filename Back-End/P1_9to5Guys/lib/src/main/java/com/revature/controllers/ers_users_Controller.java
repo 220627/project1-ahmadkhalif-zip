@@ -36,11 +36,11 @@ public class ers_users_Controller {
 				
 				ses = ctx.req.getSession(); // this is how we create new sessions
 				
-				String userJSON = gson.toJson(user);
+				String userJSON = gson.toJson(user); // turns the returned user into JSON
 				
-				ctx.result(userJSON);
+				ctx.result(userJSON); // sends the user to the front end
 				
-				// will this work?
+				// is this below necessary...?
 				//ctx.cookieStore("user_id", collectedKeys.getUser_id());
 				int current_user_id = user.getUser_id();
 				System.out.println(current_user_id);
