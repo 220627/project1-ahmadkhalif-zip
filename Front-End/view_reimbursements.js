@@ -114,31 +114,43 @@ async function viewAllReimbursements(){
 
             // cell 14 reimb_type_text
             let cell14 = document.createElement("td")
-            if(reimb.reimb_resolver == 0){
-                cell14.innerHTML = "N/A"
-            } else {
-                cell14.innerHTML = reimb.reimb_type_text
-            }
+            cell14.innerHTML = reimb.reimb_type_text
             row.appendChild(cell14)
             
             // cell 15 reimb_status_text
             let cell15 = document.createElement("td")
-            if(reimb.reimb_resolver == 0){
-                cell15.innerHTML = "N/A"
-            } else {
+            if(reimb.reimb_status_text === 'PENDING'){
+                var array = ['PENDING', 'ACCEPTED', 'DECLINED'];
+                var selectList = document.createElement("select");
+                cell15.appendChild(selectList);
+
+                // create and append options
+                for (var i = 0; i < array.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = array[i];
+                    option.text = array[i];
+                    selectList.appendChild(option);
+                }
+
+            } else{
                 cell15.innerHTML = reimb.reimb_status_text
             }
             row.appendChild(cell15)
 
-            document.getElementById("reimbBody").append(row)
-        
-        } // end of table filling
+            document.getElementById("reimbBody").append(row)    
 
-
+        }
     } else {
         alert("something went wrong! make sure your Java is running")
 
-    }
+    } // end of table filling
+
+    
+} // end of viewAllReimbursements
+
+
+// this function will
+async function resolveReimb(){
 
 }
 
