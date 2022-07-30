@@ -1,8 +1,7 @@
 const url = "http://localhost:4000"; // base url to append... is it needed here?
 
 // add listener to give buttons functionality
-document.getElementById("viewAllReimbursemetsBtn").onclick = viewAllReimbursements
-document.getElementById("updateBtn").onclick = updateSalary // change
+document.getElementById("viewAllReimbursementsBtn").onclick = viewAllReimbursements
 
 async function viewAllReimbursements(){
 
@@ -25,12 +24,9 @@ async function viewAllReimbursements(){
             // create a table row for each incoming employee
             let row = document.createElement("tr")
 
-            // create data cell for each field
-            let cell = document.createElement("td")
-            
-            // fill
-            cell.innerHTML = reimb.reimb_id
 
+            let cell = document.createElement("td")
+            cell.innerHTML = reimb.reimb_id
             row.appendChild(cell);
 
             // cell 2 - reimb_amount
@@ -120,21 +116,21 @@ async function viewAllReimbursements(){
             
             // cell 15 reimb_status_text
             let cell15 = document.createElement("td")
+
             if(reimb.reimb_status_text === 'PENDING'){
                 var array = ['PENDING', 'ACCEPTED', 'DECLINED'];
-                var selectList = document.createElement("select");
-                cell15.appendChild(selectList);
+                var statList = document.createElement("select");
+                cell15.appendChild(statList);
 
                 // create and append options
                 for (var i = 0; i < array.length; i++) {
                     var option = document.createElement("option");
                     option.value = i + 1;
                     option.text = array[i];
-                    selectList.appendChild(option);
+                    statList.appendChild(option);
                     console.log(option.value);
                     console.log(option.text);
                 }
-
             } else{
                 cell15.innerHTML = reimb.reimb_status_text
             }
@@ -149,30 +145,3 @@ async function viewAllReimbursements(){
     } // end of table filling
     
 } // end of viewAllReimbursements
-
-
-// this function will utilize the select list created in the row to fill
-async function resolveReimb(){
-
-    // gather user inputs
-    let title = document.getElementById("roleTitle").value
-    let salary = document.getElementById("salary").value
-
-    // fetch request to update role salary
-    // takes role title as a path param and it will take the new salary as the body
-    let response = await fetch(url + "/roles/" + title, {
-
-        method: "PUT",
-        body: salary // no need to turn to JSON because number
-    })
-
-    // control flow of status code
-    if(response.status === 202){
-        document.getElementById("updateHeader").innerText = "Salary for " + title + "update to: " + salary
-    
-    } else {
-        document.getElementById("updateHeader").innerText = "Update failed! Perhaps you type the title wrong?"
-    }
-
-}
-

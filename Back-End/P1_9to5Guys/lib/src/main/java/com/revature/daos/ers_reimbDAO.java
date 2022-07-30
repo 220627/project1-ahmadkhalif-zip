@@ -283,11 +283,6 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		
 		return false;
 		
-	} // end of 
-
-
-		
-		
-	
+	} // end of resolveReimb
 	
 }
