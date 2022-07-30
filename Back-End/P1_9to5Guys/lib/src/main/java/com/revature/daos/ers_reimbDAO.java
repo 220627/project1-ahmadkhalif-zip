@@ -23,11 +23,8 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
-	
-	public static void createTempUserTable() {
-		
-	}
 
+	
 	// methods accessible by employees
 	
 	// create a new request. Insert into re

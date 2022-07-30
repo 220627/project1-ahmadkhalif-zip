@@ -115,7 +115,7 @@ public class ers_reimb_Controller {
 		
 		Gson gson = new Gson();
 		
-		ers_reimbursements
+		ers_reimbursements;
 		
 		
 		if(reDAO.resolveRequest(form_id, resolver_id, status_id)) {
