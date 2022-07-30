@@ -40,7 +40,18 @@ async function loginFunc(){
         let data = await response.json();
         console.log(data)
 
+        // save data into session storage for accessing accross another page
+        var user_id = data.user_id;
+        sessionStorage.setItem("user_id", user_id);
+
+        var user_role_id = data.user_role_id
+        sessionStorage.setItem("user_role_id", user_role_id);
+
+        var first_name = data.first_name
+        sessionStorage.setItem("first_name", first_name);
+
         // this is where to redirect the user
+        window.location.href ='/home.html'
 
     } else {
 

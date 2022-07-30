@@ -205,7 +205,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 					+ "LEFT JOIN (SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers) AS us2 ON er.reimb_resolver = us2.user_id2\r\n"
 					+ "LEFT JOIN ersreimbursementstatus AS stat ON er.reimb_status_id = stat.reimbursement_status_id\r\n"
 					+ "FULL JOIN ersreimbursementtype AS ty ON er.reimb_type_id = ty.reimbursement_type_id\r\n"
-					+ "WHERE er.reimb_type_id = 2;";
+					+ "WHERE er.reimb_type_id = ?;";
 			
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			PreparedStatement s = conn.prepareStatement(sql);
@@ -213,7 +213,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 			s.setInt(1, reimb_type_id);
 			
 			// a result set will allow us to hold our data
-			ResultSet rs = s.executeQuery(sql);
+			ResultSet rs = s.executeQuery();
 			
 			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
 			
