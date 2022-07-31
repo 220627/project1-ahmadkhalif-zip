@@ -11,7 +11,7 @@ welcText.textContent = "Hello, " + first_name;
 document.getElementById("ViewReimbBtn").onclick = viewAllReimbs
 
 async function viewAllReimbs(){
-    if (user_role_id === 1){
+    if (user_role_id == 1){
         window.location.href ='/view_reimbursements.html'
 
     } else {

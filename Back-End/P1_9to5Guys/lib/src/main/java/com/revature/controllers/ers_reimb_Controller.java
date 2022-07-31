@@ -13,14 +13,11 @@ public class ers_reimb_Controller {
 	ers_reimbDAO reDAO = new ers_reimbDAO();
 	
 	public Handler submitreimbHandler = (ctx) -> {
-		
 		String body = ctx.body();
 		
 		Gson gson = new Gson();
 		
-		
 		ers_reimbursement newReimb = gson.fromJson(body, ers_reimbursement.class);
-		
 		
 		if(reDAO.submitReimb(newReimb)) {
 			
@@ -30,7 +27,6 @@ public class ers_reimb_Controller {
 			ctx.status(406);
 		}
 	};
-
 	
 	public Handler viewAllReimbursementsbyUserHandler = (ctx) -> {
 	
@@ -54,7 +50,6 @@ public class ers_reimb_Controller {
 		
 		
 	};
-	
 	
 	public Handler viewAllReimbursementsHandler = (ctx) -> {
 		
@@ -99,7 +94,6 @@ public class ers_reimb_Controller {
 		
 	};
 	
-	
 	public Handler resolveRequestHandler = (ctx) -> {
 		// collect user data for new resolver id
 		// we current have the use of an object in the param
@@ -107,13 +101,14 @@ public class ers_reimb_Controller {
 		String reimb_id = ctx.pathParam("reimb_id");
 		int form_id = Integer.parseInt(reimb_id);
 		
-		String reimb_status_id = ctx.body();
-		int status_id = Integer.parseInt(reimb_status_id);
+		String jSon = ctx.body();
+		System.out.println(jSon);
 		
-		String reimb_resolver_id = ctx.body();
-		int resolver_id = Integer.parseInt(reimb_resolver_id);
+		Gson g = new Gson();
+		ers_reimbursement e = g.fromJson(jSon, ers_reimbursement.class);
 		
-		Gson gson = new Gson();
+		int resolver_id = e.getReimb_resolver();
+		int status_id = e.getReimb_status_id();
 		
 		
 		if(reDAO.resolveRequest(form_id, resolver_id, status_id)) {
@@ -123,8 +118,8 @@ public class ers_reimb_Controller {
 		} else {
 			ctx.status(406);
 			System.out.println("You have failed to resolve the request.");
-		}
 		
+		}
 		
 	};
 	

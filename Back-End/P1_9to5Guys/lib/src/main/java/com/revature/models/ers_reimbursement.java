@@ -121,6 +121,21 @@ public class ers_reimbursement {
 		this.reimb_status_text = reimb_status_text;
 		this.reimb_type_text = reimb_type_text;
 	}
+	
+	
+	public ers_reimbursement(int reimb_id, int reimb_resolver, int reimb_status_id) {
+		super();
+		this.reimb_id = reimb_id;
+		this.reimb_resolver = reimb_resolver;
+		this.reimb_status_id = reimb_status_id;
+	}
+
+	// this is for updating the reimbursement
+	public ers_reimbursement(int reimb_resolver, int reimb_status_id) {
+		super();
+		this.reimb_resolver = reimb_resolver;
+		this.reimb_status_id = reimb_status_id;
+	}
 
 	@Override
 	public String toString() {
@@ -133,8 +148,7 @@ public class ers_reimbursement {
 				+ ", reimb_resolver_username=" + reimb_resolver_username + ", reimb_resolver_first_name="
 				+ reimb_resolver_first_name + ", reimb_resolver_last_name=" + reimb_resolver_last_name
 				+ ", reimb_resolver_email=" + reimb_resolver_email + ", reimb_status_text=" + reimb_status_text
-				+ ", reimb_type_text=" + reimb_type_text + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", reimb_type_text=" + reimb_type_text + "]";
 	}
 
 	public int getReimb_id() {

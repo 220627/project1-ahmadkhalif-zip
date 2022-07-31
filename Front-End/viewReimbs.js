@@ -270,17 +270,20 @@ async function resolveReimb() {
 
     // gather user input for user_id, status_type and reimb_id
     let status_type = document.getElementById("statList").value
+    var user_id = sessionStorage.getItem("user_id");
 
     console.log(status_type);
+    console.log(user_id);
 
     let reimb_id = document.getElementById("reimbNum").value
-    myJSON = {"reimb_resolver": user_id, "reimb_status_id": status_type}
-    myObj = JSON.parse(myJSON);
+    myJSON = {reimb_resolver: user_id, reimb_status_id: status_type};
 
-    let response = await fetch(url + "/" + reimb_id, {
+    let response = await fetch(url + "/view_reimbursements/" + reimb_id, {
         method: "PUT",
-        body: myJSON
+        body: JSON.stringify(myJSON)
     })
+    console.log(myJSON);
+    console.log(JSON.stringify(myJSON));
 
     // control flow on status code
     if (response.status === 202){

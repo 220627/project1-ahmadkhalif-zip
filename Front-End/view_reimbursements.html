@@ -66,9 +66,28 @@ by the reimb_type_id.
                <!-- viewAllReimbursementsBtn -->
         <br><br>
 
+        <!-- Resolve Reimbursement by inputting into body -->
+        <div id="resolveForm">
+            <p>Reimbursement Number:</p>
+            <input type="text" id="reimbNum" placeholder="Enter the reimbursement #">
+            <p>Select Resolve Type:</p>
+            <select name="statList" id="statList">
+                <option value="1">Pending</option>
+                <option value="2">Accepted</option>
+                <option value="3">Declined</option>
+            </select><br><br>
+            <button id="resolveReimbBtn" class="btn btn-danger">Resolve Reimbursement</button>
+
+        </div>
+        <br><br>
+        
+        <p id="afterResolve"></p>
+
+        <br><br><br>
+
     </div>
 
-    <script src="view_reimb.js"></script>
+    <script src="viewReimbs.js"></script>
     <!-- viewAllReimbursementsBtn -->
 </body>
 </html>
