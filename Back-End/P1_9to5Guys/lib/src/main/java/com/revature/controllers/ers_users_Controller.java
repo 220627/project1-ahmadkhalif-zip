@@ -2,6 +2,9 @@ package com.revature.controllers;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.revature.models.ers_users;
 import com.revature.services.ers_user_loginService;
@@ -9,6 +12,9 @@ import com.revature.services.ers_user_loginService;
 import io.javalin.http.Handler;
 
 public class ers_users_Controller {
+	
+	//instantiate logger object so that we can achieve logging (you can do logging or testing for P1)
+	public static Logger Log = LogManager.getLogger();
 
 	// we need an AuthService. remember the service layer sits between the Controllers and DAOs
 	ers_user_loginService UserServe = new ers_user_loginService();
@@ -34,6 +40,9 @@ public class ers_users_Controller {
 			
 			if(user != null) { // if login is successful...
 				
+				// log that the user logged in successfully
+				Log.info("User: " + collectedKeys.getUsername() + " Logged In!");
+				
 				ses = ctx.req.getSession(); // this is how we create new sessions
 				
 				String userJSON = gson.toJson(user); // turns the returned user into JSON
@@ -49,6 +58,8 @@ public class ers_users_Controller {
 				System.out.println("login successful");
 				
 			} else {
+				// log that the user failed to log in
+				
 				ctx.status(401); // 401 stands for "unauthorized"
 				System.out.println("login unsuccessful");
 			}
