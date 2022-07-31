@@ -1,5 +1,76 @@
-<!--this page will hold the user's specific reimbursement data 
-once logged in their role_id will be checked
-the redirection for this page will populate table data 
-for the current (EMPLOYEE) user logged in.
+<!-- this page will only be accessible to MANAGER USERS 
+It will populate a table with reimbursements from the database 
+On default the page will show ALL reimbursements.
+At the top of the table there will be a dropdown menu 
+to filter reimbursementy by type.
+Once the drop down is selected the page will reroute 
+by the reimb_type_id. 
 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- (Bootstrap) CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <ul id="nav-bar">
+            <li><button id="HomeBtn" class="button">Home</button></li>
+            <li><button id="ViewMyReimbBtn" class="button">My Reimbursements</button></li>
+            <li><button id="createReimbBtn" class="button">Create Reimbursement</button></a></li>
+            <li id="headertext">Nine To Five Guys</li>
+        </ul> <br><br><br>
+
+        <h3>Reimbursements</h3>
+        <br><br>
+
+        <div id="table-row" class="row">
+
+            <table class="table table-bordered table=table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reimbursement Amt</th>
+                        <th>Time Submitted</th>
+                        <th>Time Resolved</th>
+                        <th>Description</th>
+                        <th>Author Username</th>
+                        <th>Author First Name</th>
+                        <th>Author Last Name</th>
+                        <th>Author Email</th>
+                        <th>Resolver Username</th>
+                        <th>Resolver First Name</th>
+                        <th>Resolver Last Name</th>
+                        <th>Resolver Email</th>
+                        <th>Reimbursement Type</th>
+                        <th>Reimbursement Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="reimbBody">
+
+                    <!-- this will be filled with data by JS -->
+
+                </tbody>
+            </table>
+        </div>
+        <button id="viewMyReimbsBtn" class="btn btn-danger">View Reimbursements</button>
+               <!-- viewAllReimbursementsBtn -->
+        <br><br>
+
+        <p id="noAccess"></p>
+
+    </div>
+
+    <script src="my_reimbursements.js"></script>
+    <!-- viewAllReimbursementsBtn -->
+</body>
+</html>

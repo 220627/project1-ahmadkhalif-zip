@@ -51,7 +51,16 @@ async function loginFunc(){
         sessionStorage.setItem("first_name", first_name);
 
         // this is where to redirect the user
-        window.location.href ='/home.html'
+        if (user_role_id == 1){
+            window.location.href ='/home.html'
+        
+        } else if (user_role_id == 2){
+            window.location.href = 'employeehome.html'
+        }
+        else {
+            cMsg = document.getElementById("concernedMsg");
+            cMsg.textContent = "Um... you don't work here you can't be behind the counter."
+        }
 
     } else {
 

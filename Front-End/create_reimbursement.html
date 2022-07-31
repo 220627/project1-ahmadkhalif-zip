@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Create A Reimbursement</title>
+</head>
+<body>
+    
+    <ul id="nav-bar">
+        <li><button id="HomeBtn" class="button">Home</button></li>
+        <li><button id="ViewMyReimbBtn" class="button">My Reimbursements</button></li>
+        <li><button id="createReimbBtn" class="button">Create Reimbursement</button></a></li>
+        <li id="headertext">Nine To Five Guys</li>
+    </ul> <br><br><br>
+
+    <!-- Resolve Reimbursement by inputting into body -->
+    <div id="createreimbForm" class="forms">
+        <p>Reimbursement Amount ($):</p>
+        <input type="text" id="reimbNum" placeholder="Enter reimbursement amount">
+        <p>Select Reimbursement Type:</p>
+        <select name="typeList" id="typeList">
+            <option value="1">Lodging</option>
+            <option value="2">Travel</option>
+            <option value="3">Food</option>
+            <option value="4">Other</option>
+        </select>
+        <p>Enter Description:</p>
+        <input type="text" id="reimbDesc" placeholder="Enter no more than 50 characters">
+        <br><br>
+        <button id="createReimbursementBtn" class="btn btn-danger">Create Reimbursement</button>
+
+    </div>
+    <br><br>
+    
+    <p id="afterResolve"></p>
+    
+    <script src="create_reimb.js"></script>
+</body>
+</html>

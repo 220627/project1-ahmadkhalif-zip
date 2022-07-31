@@ -59,7 +59,7 @@ public class Launcher {
 				// this handler takes in GET requests. it will return all employees from the database
 				//app.get is the javalin method that takes GET requests.
 				//the request in postman would look something like localhost:3000/employees
-				app.post("/create_reimb", rc.submitreimbHandler);
+				app.post("/create_reimbursement", rc.submitreimbHandler);
 				//we want requests ending in /employees to get all employees
 				
 				// the app.post() is the method that takes in POST requests. It will insert employee data into the DB.

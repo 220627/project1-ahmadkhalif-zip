@@ -30,7 +30,7 @@ public class ers_reimb_Controller {
 	
 	public Handler viewAllReimbursementsbyUserHandler = (ctx) -> {
 	
-		String reimb_author = ctx.pathParam("reimb_author");
+		String reimb_author = ctx.body();
 		int id = Integer.parseInt(reimb_author);
 		
 		ArrayList<ers_reimbursement> reimbs = reDAO.viewAllReimbursementsbyUser(id);

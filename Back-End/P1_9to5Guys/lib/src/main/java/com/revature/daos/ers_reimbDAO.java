@@ -33,7 +33,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "insert into ersreimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_resolver, reimb_status_id, reimb_type_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
+			String sql = "insert into ersreimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id) values (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -44,7 +44,7 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 			ps.setString(4, reimbursement.getReimb_description());
 			ps.setInt(5, reimbursement.getReimb_author());
 			ps.setNull(6, Types.NULL);
-			ps.setInt(7, 0);
+			ps.setInt(7, 1);
 			ps.setInt(8, reimbursement.getReimb_type_id());
 			
 			// send to the database
@@ -79,10 +79,10 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 			// because there are no variables/wild-cards involved we don't need a preparedStatement
 			PreparedStatement s = conn.prepareStatement(sql);
 			
-			//s.setInt(1, );
+			s.setInt(1, reimb_author);
 			
 			// a result set will allow us to hold our data
-			ResultSet rs = s.executeQuery(sql);
+			ResultSet rs = s.executeQuery();
 			
 			ArrayList<ers_reimbursement> reimb_list = new ArrayList<>();
 			
@@ -135,10 +135,6 @@ public class ers_reimbDAO implements ers_reimb_DAOInterface {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
 			Statement s = conn.createStatement();
-			
-			String sql1 = "CREATE TEMPORARY TABLE UserNoPass AS SELECT user_id AS user_id2, username AS username2, first_name AS first_name2, last_name AS last_name2, user_email AS user_email2 FROM ersusers;";
-			
-			s.addBatch(sql1);
 			
 			s.executeBatch();
 			
