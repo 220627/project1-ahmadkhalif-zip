@@ -2,6 +2,9 @@ package com.revature.controllers;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.revature.daos.ers_reimbDAO;
 import com.revature.models.ers_reimbursement;
@@ -9,6 +12,8 @@ import com.revature.models.ers_reimbursement;
 import io.javalin.http.Handler;
 
 public class ers_reimb_Controller {
+	
+	public static Logger Log = LogManager.getLogger();
 	
 	ers_reimbDAO reDAO = new ers_reimbDAO();
 	
@@ -20,10 +25,15 @@ public class ers_reimb_Controller {
 		ers_reimbursement newReimb = gson.fromJson(body, ers_reimbursement.class);
 		
 		if(reDAO.submitReimb(newReimb)) {
-			
+			// success log
+			Log.info("User: " + newReimb.getReimb_author_username() + " created a reimbursement request");
+				
 			ctx.status(202);
 		
 		} else {
+			// failure log
+			Log.info("User: " + newReimb.getReimb_author_username() + " failed to create a reimbursement request");
+			
 			ctx.status(406);
 		}
 	};
@@ -61,10 +71,14 @@ public class ers_reimb_Controller {
 		String allReimbs = gson.toJson(reimbs);
 		
 		if(allReimbs != null) {
+			Log.info("User viewed all reimbursement request");
+
+			
 			ctx.result(allReimbs);
 			ctx.status(202);
 			
 		} else {
+			Log.info("User failed to view all reimbursement request");
 			ctx.status(401);
 		}
 		
@@ -112,10 +126,17 @@ public class ers_reimb_Controller {
 		
 		
 		if(reDAO.resolveRequest(form_id, resolver_id, status_id)) {
+			// success log
+			Log.info("User ID, " + e.getReimb_resolver() + ", resolved a reimbursement request");
+
+			
 			ctx.status(202);
 			System.out.println("You have resolved the Reimbursement request.");
 		
 		} else {
+			// failure log
+			Log.info("User ID, " + e.getReimb_resolver() + ", failed to resolve a reimbursement request");
+			
 			ctx.status(406);
 			System.out.println("You have failed to resolve the request.");
 		

@@ -41,7 +41,7 @@ public class ers_users_Controller {
 			if(user != null) { // if login is successful...
 				
 				// log that the user logged in successfully
-				Log.info("User: " + collectedKeys.getUsername() + " Logged In!");
+				Log.info("User: " + collectedKeys.getUsername() + " Logged In");
 				
 				ses = ctx.req.getSession(); // this is how we create new sessions
 				
@@ -59,6 +59,7 @@ public class ers_users_Controller {
 				
 			} else {
 				// log that the user failed to log in
+				Log.info("User: " + collectedKeys.getUsername() + " Failed to Log In");
 				
 				ctx.status(401); // 401 stands for "unauthorized"
 				System.out.println("login unsuccessful");
