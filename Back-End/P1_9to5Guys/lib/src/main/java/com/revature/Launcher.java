@@ -74,20 +74,7 @@ public class Launcher {
 				
 				// login stuff --------------------------------------------------
 				app.post("/login", uc.loginHandler); 
-				
-				app.before("/view_reimbursements/*", ctx -> {
-					// can i get the cookie here?
-					//int id = current_user_id;
-				}); 
-				// --------------------------------------------------------------
-				//app.put is the javalin method that takes put request it will tke two pieces of data: the role title in the path parameter and the salary in the request body
-				//:title? this is a PATH PARAMETER. Whatever the user inserts here in the requests will be used in the controller
-				
-				
-					
-		
 
-		//log.info("Logging works");
 		
 	}
 

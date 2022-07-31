@@ -51,10 +51,16 @@ public class ers_reimb_Controller {
 		String usersReimbs = gson.toJson(reimbs);
 		
 		if(usersReimbs != null) {
+			// log yes
+			Log.info("User successfully view their reimbursements");
+
 			ctx.result(usersReimbs);
 			ctx.status(202);
 			
 		} else {
+			//log no
+			Log.info("User failed to view their reimbursements");
+
 			ctx.status(401);
 		}
 		
